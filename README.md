@@ -41,7 +41,17 @@ As an important subfield of cross-modal generation, synthesizing static visual c
 ## 📦 Data preparation
 
 
+## ⚙️ Environment Setup
 
+
+
+## 🙏 Acknowledgements
+
+This work builds upon and integrates components from the following open-source projects:
+
+
+
+## 📚 Citation
 
 
 
