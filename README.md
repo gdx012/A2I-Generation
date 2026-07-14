@@ -31,24 +31,96 @@ As an important subfield of cross-modal generation, synthesizing static visual c
 
 
 ## 🚀 Updates​
-- [x] 2026/4/29: Release our dataset A2I-Set.​
-
+- [x] 2026/4/29: Released our dataset A2I-Set.​
+- [x] 2026/7/14: Updated environment setup for AudioCanvas.
 
 ## 🚩 TO DO
+- [ ] Open source evaluation scripts.
 - [ ] Open source training and inference codes of AudioCanvas.
 - [ ] Upload AudioCanvas' training weights.
 ​
 ## 📦 Data preparation
 
+Download our dataset A2I-Set from: https://huggingface.co/datasets/gdx123/A2I_Set
+
+Merge the compressed packages and extract them, A2I_audio for example：
+```
+cat A2I_audio.tar.gz.part* > A2I_audio.tar.gz
+tar -zxvf A2I_audio.tar.gz
+```
+
+Then, put all dataset under `data` directory as follows:
+```
+data/
+├── A2I_audio
+│   ├── [audio_tag1].wav
+│   ├── [audio_tag2].wav
+│   ├── [audio_tag3].flac
+│   ├── ...
+
+├── A2I_real
+│   ├── [audio_tag1].png
+│   ├── [audio_tag1].png
+│   ├── ...
+
+├── A2I_syn
+│   ├── [audio_tag1].mp4_[frame_idx1].png
+│   ├── [audio_tag1].mp4_[frame_idx2].png
+│   ├── [audio_tag2].mp4_[frame_idx1].png
+│   ├── ...
+
+├── eval_audio_all
+│   ├── [audio_tag1]|cls1|cls2.wav
+│   ├── [audio_tag2]|cls1|cls2|cls3.wav
+│   ├── ...
+
+├── caption.json
+```
+
+To sum, A2I-Set has 260,060 audios with 241 hierarchical labels and captions, 193,653 synthetic images, 129,793 real images and 3280 human-labeled audios for evaluation.
+
+A caption example shows below:
+```
+"t2i_caption_Skz--pje298": {
+        "[Main Subject]": "<male voice>",
+        "[Visual Generation Instruction]": "A well-lit presentation room with a man standing confidently at a podium, focused on delivering an instructional talk. He is dressed in business casual attire, gesturing slightly with his hands to emphasize points. The background is uncluttered, with a projected slide behind him featuring technical diagrams, creating a professional and engaging atmosphere.",
+        "[Top Level]": "speech"
+    }
+```
 
 ## ⚙️ Environment Setup
 
+We tested the code on:
+
+- **OS**: Ubuntu 22.04
+- **Hardware**: 8 × NVIDIA H100 80GB GPUs
+- **Python**: 3.12.12
+
+```
+cd /path/to/A2I-Generation
+# Create and activate the virtual environment if needed
+conda env create -n A2I
+conda activate A2I
+pip install -r requirements.txt
+```
+
+
+## 🔍 AudioCanvas
 
 
 ## 🙏 Acknowledgements
 
 This work builds upon and integrates components from the following open-source projects:
 
+- MACS
+- [AudioToken](https://github.com/guyyariv/AudioToken)
+- [FusionAudio-1.2M](https://github.com/FreedomIntelligence/FusionAudio)
+- [AudioSet](https://research.google.com/audioset/)
+- [VGGSound](https://github.com/hche11/VGGSound)
+
+## 📜 License
+
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
 
 ## 📚 Citation
