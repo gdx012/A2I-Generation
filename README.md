@@ -60,7 +60,7 @@ data/
 
 ├── A2I_real
 │   ├── [audio_tag1].png
-│   ├── [audio_tag1].png
+│   ├── [audio_tag2].png
 │   ├── ...
 
 ├── A2I_syn
@@ -98,10 +98,9 @@ We tested the code on:
 
 ```
 cd /path/to/A2I-Generation
-# Create and activate the virtual environment if needed
-conda env create -n A2I
+# Create and activate the virtual environment
+conda env create -f environment.yaml
 conda activate A2I
-pip install -r requirements.txt
 ```
 
 
