@@ -103,8 +103,22 @@ conda env create -f environment.yaml
 conda activate A2I
 ```
 
+## 🤖 Evaluation
+
+download from: https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz and move to folder evaluation
+
+```
+
+mv PATH/VIRTUAL_imagenet256_labeled.npz A2I-Generation/evaluation
+cd ./evaluation
+bash evaluation.sh
+```
+
 
 ## 🔍 AudioCanvas
+
+
+
 
 
 ## 🙏 Acknowledgements
