@@ -33,9 +33,9 @@ As an important subfield of cross-modal generation, synthesizing static visual c
 ## 🚀 Updates​
 - [x] 2026/4/29: Released our dataset A2I-Set.​
 - [x] 2026/7/14: Updated environment setup for AudioCanvas.
+- [x] 2026/7/17: Updated evaluation codes and script.
 
 ## 🚩 TO DO
-- [ ] Open source evaluation scripts.
 - [ ] Open source training and inference codes of AudioCanvas.
 - [ ] Upload AudioCanvas' training weights.
 ​
@@ -105,12 +105,13 @@ conda activate A2I
 
 ## 🤖 Evaluation
 
-download from: https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz and move to folder evaluation
-
+download FID weights from: https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz
+download HPSv3 weights from: https://huggingface.co/MizzenAI/HPSv3
 ```
 
 mv PATH/VIRTUAL_imagenet256_labeled.npz A2I-Generation/evaluation
-cd ./evaluation
+mv PATH/HPSv3 A2I-Generation/evaluation
+cd A2I-Generation/evaluation
 bash evaluation.sh
 ```
 
