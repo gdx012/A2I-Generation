@@ -88,10 +88,6 @@ A caption example shows below:
     }
 ```
 
-For evaluation on Landscape, download from https://drive.google.com/drive/folders/14A1zaQI5EfShlv3QirgCGeNFzZBzQ3lq, and unzip to /data
-
-set $AUDIO_DIR to /data/landscape/test
-
 
 ## ⚙️ Environment Setup
 
@@ -114,7 +110,10 @@ download FID weights from: https://openaipublic.blob.core.windows.net/diffusion/
 
 download HPSv3 weights from: https://huggingface.co/MizzenAI/HPSv3
 
-And move them to directory evaluation
+And move them to /evaluation
+
+Download Landscape from https://drive.google.com/drive/folders/14A1zaQI5EfShlv3QirgCGeNFzZBzQ3lq, and unzip to /data
+
 ```
 
 mv PATH/VIRTUAL_imagenet256_labeled.npz A2I-Generation/evaluation
@@ -122,6 +121,10 @@ mv PATH/HPSv3 A2I-Generation/evaluation
 
 bash evaluation/evaluation.sh
 ```
+
+For evaluation on A2I-Eval, set $AUDIO_DIR to /data/A2I_Set/eval_audio_all
+For evaluation on Landscape, set $AUDIO_DIR to /data/landscape/test
+
 
 
 ## 🔍 AudioCanvas
