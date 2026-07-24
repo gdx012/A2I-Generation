@@ -34,9 +34,9 @@ As an important subfield of cross-modal generation, synthesizing static visual c
 - [x] 2026/4/29: Released our dataset A2I-Set.​
 - [x] 2026/7/14: Updated environment setup for AudioCanvas.
 - [x] 2026/7/17: Updated evaluation codes and script.
+- [x] 2026/7/24: Open source training and inference codes of AudioCanvas.
 
 ## 🚩 TO DO
-- [ ] Open source training and inference codes of AudioCanvas.
 - [ ] Upload AudioCanvas' training weights.
 ​
 ## 📦 Data preparation
@@ -88,6 +88,11 @@ A caption example shows below:
     }
 ```
 
+For evaluation on Landscape, download from https://drive.google.com/drive/folders/14A1zaQI5EfShlv3QirgCGeNFzZBzQ3lq, and unzip to /data
+
+set $AUDIO_DIR to /data/landscape/test
+
+
 ## ⚙️ Environment Setup
 
 We tested the code on:
@@ -106,27 +111,97 @@ conda activate A2I
 ## 🤖 Evaluation
 
 download FID weights from: https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz
+
 download HPSv3 weights from: https://huggingface.co/MizzenAI/HPSv3
+
+And move them to directory evaluation
 ```
 
 mv PATH/VIRTUAL_imagenet256_labeled.npz A2I-Generation/evaluation
 mv PATH/HPSv3 A2I-Generation/evaluation
-cd A2I-Generation/evaluation
-bash evaluation.sh
+
+bash evaluation/evaluation.sh
 ```
 
 
 ## 🔍 AudioCanvas
 
+To train AudioCanvas, you should first download our dataset A2I-Set, and move it to repository root
+
+During Pre-Alignment stage, we first train Audio Projector separately for 10 epochs
+
+```
+
+accelerate launch --num_processes 1 modules/audio2text.py \
+  --result_dir "./results" \
+  --clap_model_path "PATH/clap-htsat-unfused" \
+  --sd_path "PATH/stable-diffusion-v1-4" \
+  --response_json "data/A2I_Set/caption.json"
+  --batch_size 256 \
+  --num_workers 4 \
+  --seed 42 \
+
+```
+
+Then we finetune SD1.4 for 25 epochs on the synthetic part of the A2I-Set, to ensure AudioCanvas learns the aesthetic style of synthetic images
+
+```
+
+accelerate launch --num_processes N train.py \
+  --pt_path='./results' \
+  --sd_path='CompVis/stable-diffusion-v1-4' \
+  --output_dir='./results/output_lr_5e5_FiLM' \
+  --dataset_name='Fulldataset' \
+  --epochs=25 \
+  --lr=5e-5 \
+  --batch_size=2 \
+  --gradient_accumulation_steps=8 \
+  --scheduler='constant' \
+  --cfg \
+  --only_gen
+
+```
+
+Finally, we train 100 additional epochs on the entire dataset to get the best result
+
+```
+
+accelerate launch --num_processes N train.py \
+  --start_epoch=25 \
+  --pt_path='./results/output_lr_5e5_FiLM' \
+  --sd_path='CompVis/stable-diffusion-v1-4' \
+  --output_dir='./results/output_lr_5e5_FiLM' \
+  --dataset_name='Fulldataset' \
+  --epochs=100 \
+  --lr=5e-5 \
+  --batch_size=2 \
+  --gradient_accumulation_steps=8 \
+  --scheduler='cosine' \
+  --cfg
+
+```
+
+To inference with AudioCanvas on A2I-eval or Landscape
 
 
+```
+
+python inference.py \
+  --pt_path='./results/output_lr_5e5_FiLM' \
+  --sd_path='CompVis/stable-diffusion-v1-4' \
+  --output_dir='./results/output_lr_5e5_FiLM/epoch_70' \
+  --eval_set='A2I' \
+  --cfg
+
+
+```
 
 
 ## 🙏 Acknowledgements
 
 This work builds upon and integrates components from the following open-source projects:
 
-- MACS
+- MACS: Multi-source Audio-to-image Generation with Contextual Significance and Semantic Alignment
 - [AudioToken](https://github.com/guyyariv/AudioToken)
 - [FusionAudio-1.2M](https://github.com/FreedomIntelligence/FusionAudio)
 - [AudioSet](https://research.google.com/audioset/)
