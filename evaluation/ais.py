@@ -19,7 +19,7 @@ p.add_argument('-d', '--dataset', type=str)
 p.add_argument('-m', '--model_name', type=str, default='proposed')
 p.add_argument('-i', '--image_path', type=str, default=None)
 p.add_argument('-a', '--audio_path', type=str, default=None)
-p.add_argument('--clip', type=str, default='"openai/clip-vit-base-patch32"')
+p.add_argument('--clip', type=str, default='openai/clip-vit-base-patch32')
 args = p.parse_args()
 
 
@@ -83,8 +83,8 @@ for fn in (pbar := tqdm(imp)):
         if not fn.endswith('jpg') and not fn.endswith('png'):
             continue
         img = os.path.join(image_path, fn)
-        name = fn.replace("_0.png","").replace("onec_re_","") 
-        audio_list = glob(f"/team_share/teleaudio/gdx/A2I_Set/eval_audio_all/{name}*")
+        name = fn.replace("_0.png","") 
+        audio_list = glob(f"data/A2I_Set/eval_audio_all/{name}*")
         audio_path = audio_list[0]
         track, _ = librosa.load(audio_path, sr=16000)
     image = Image.open(img)

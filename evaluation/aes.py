@@ -50,8 +50,8 @@ def get_all_audio_paths(root_dir: str) -> List[str]:
     audio_paths = []
 
     for name in os.listdir(root_dir):
-        name = name.replace("_0.png","").replace("onec_re_","") 
-        audio_list = glob(f"A2I-Generation/data/eval_audio_all/{name}*")
+        name = name.split('.')[0].replace("_0.png","") 
+        audio_list = glob(f"data/A2I_Set/eval_audio_all/{name}*")
         audio_path = audio_list[0]
         if os.path.exists(audio_path):
             audio_paths.append(audio_path)
@@ -73,7 +73,7 @@ p.add_argument('-d', '--dataset', type=str)
 p.add_argument('-m', '--model_name', type=str, default='proposed')
 p.add_argument('-i', '--image_path', type=str, default=None)
 p.add_argument('-a', '--audio_path', type=str, default=None)
-p.add_argument('--clip', type=str, default='"openai/clip-vit-base-patch32"')
+p.add_argument('--clip', type=str, default='openai/clip-vit-base-patch32')
 args = p.parse_args()
 
 image_path = args.image_path
@@ -136,7 +136,7 @@ def normalized(a, axis=-1, order=2):
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
 model_av = MLP(768).cuda()
-s = torch.load("./sac+logos+ava1-l14-linearMSE.pth")
+s = torch.load("evaluation/sac+logos+ava1-l14-linearMSE.pth")
 # load the model you trained previously or the model available in this repo
 model_av.load_state_dict(s)
 model_av.to("cuda")

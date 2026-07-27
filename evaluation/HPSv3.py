@@ -11,9 +11,10 @@ from transformers import CLIPProcessor, CLIPModel, AutoTokenizer
 from typing import List
 import json
 from hpsv3 import HPSv3RewardInferencer
+from glob import glob
 
 # Initialize the model
-inferencer = HPSv3RewardInferencer(device='cuda', checkpoint_path = "./HPSv3/HPSv3.safetensors")
+inferencer = HPSv3RewardInferencer(device='cuda', checkpoint_path = "evaluation/HPSv3/HPSv3.safetensors")
 
 def get_all_video_paths(root_dir: str) -> List[str]:
     """
@@ -54,7 +55,7 @@ imp = os.listdir(image_path)
 imp = list(filter(lambda x: 'ipynb' not in x, imp))
 if dataset == 'landscape':
     aup = get_all_video_paths(gt_path)
-with open("/data/caption.json", "r") as f:
+with open("data/A2I_Set/caption.json", "r") as f:
     data = json.load(f)
 keys = list(data.keys())
 for fn in (pbar := tqdm(imp)):
@@ -63,9 +64,10 @@ for fn in (pbar := tqdm(imp)):
     if dataset == 'A2I':
 
         img = os.path.join(image_path, fn)
-        name = fn.replace("_0.png","").replace("onec_re_","") 
-        objects = data["t2i_caption_" + name.split('|')[0].replace(".wav","").replace(".flac","")]['[Main Subject]']
-        labels = re.findall(r'<([^>]+)>', objects)
+        name = fn.replace("_0.png","")
+        audio_list = glob(f"data/A2I_Set/eval_audio_all/{name}*")
+        audio_path = audio_list[0]
+        labels = os.path.basename(audio_path).split('.')[0].split('|')[1:]
         text = "An image related to " + " and ".join(labels)
         
     if dataset == 'landscape':

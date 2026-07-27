@@ -10,6 +10,8 @@ from tqdm import tqdm
 from transformers import CLIPProcessor, CLIPModel, AutoTokenizer
 from typing import List
 import json
+from glob import glob
+
 
 def get_all_video_paths(root_dir: str) -> List[str]:
     """
@@ -38,7 +40,7 @@ p.add_argument('-d', '--dataset', type=str)
 p.add_argument('-m', '--model_name', type=str, default='proposed')
 p.add_argument('--pred', type=str, default=None)
 p.add_argument('--gt', type=str, default=None)
-p.add_argument('--clip', type=str, default='"openai/clip-vit-base-patch32"')
+p.add_argument('--clip', type=str, default='openai/clip-vit-base-patch32')
 args = p.parse_args()
 
 vision_model = CLIPModel.from_pretrained(args.clip).cuda()
@@ -54,7 +56,7 @@ imp = os.listdir(image_path)
 imp = list(filter(lambda x: 'ipynb' not in x, imp))
 if dataset == 'landscape':
     aup = get_all_video_paths(gt_path)
-with open("/user_share/gdx/s2i/response_final_1k_mapped_cleaned_final.json", "r") as f:
+with open("data/A2I_Set/caption.json", "r") as f:
     data = json.load(f)
 keys = list(data.keys())
 for fn in (pbar := tqdm(imp)):
@@ -65,7 +67,9 @@ for fn in (pbar := tqdm(imp)):
 
             img = os.path.join(image_path, fn)
             name = fn.replace("_0.png","").replace("onec_re_","") 
-            classes = data["t2i_caption_" + name.split("|")[0].replace(".wav","").replace(".flac","")]['[Main Subject]'].replace("<", "").replace(">", "").split(', ')
+            audio_list = glob(f"data/A2I_Set/eval_audio_all/{name}*")
+            audio_path = audio_list[0]
+            classes = os.path.basename(audio_path).split('.')[0].split('|')[1:]
             text = ['An image related to ' + ' and '.join(classes)]
 
         if dataset == 'landscape':
