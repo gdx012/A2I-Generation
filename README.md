@@ -8,8 +8,8 @@ University of Science and Technology of China, Tele AI
 
 </div>
 <p align="center">
-<a href="http://arxiv.org/abs/2408.01343">
-    <img src="https://img.shields.io/badge/arXiv-2408.01343-green" /></a>
+<a href="http://arxiv.org/abs/2608.09529">
+    <img src="https://img.shields.io/badge/arXiv-2608.09529-green" /></a>
 <a href="https://huggingface.co/datasets/gdx123/A2I-Set">
     <img src="https://img.shields.io/badge/Dataset-A2ISet-red.svg" /></a>
 <a href="https://pytorch.org/">
