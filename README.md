@@ -4,7 +4,7 @@
 
 [Dongxu Ge], [Shansong Liu], [Cheng Gong], [Xiao-Lei Zhang], [Chi Zhang], [Xuelong Li]
 
-University of Science and Technology of China, Tele AI
+University of Science and Technology of China, Tele AI, Northwest Polytechnical University
 
 </div>
 <p align="center">
