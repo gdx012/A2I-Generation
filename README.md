@@ -217,6 +217,15 @@ This project is licensed under the MIT License — see the [LICENSE](LICENSE) fi
 
 ## 📚 Citation
 
-
+@misc{ge2026expressivefaithfulaudiotoimagegeneration,
+      title={Towards Expressive and Faithful Audio-to-Image Generation: A Unified Multimodal Dataset and Synthesis Framework}, 
+      author={Dongxu Ge and Shansong Liu and Cheng Gong and Xiao-Lei Zhang and Chi Zhang and Xuelong Li},
+      year={2026},
+      eprint={2608.09529},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      doi={https://doi.org/10.1145/3767308.3836313},
+      url={https://arxiv.org/abs/2608.09529}, 
+}
 
 
