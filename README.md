@@ -165,7 +165,7 @@ accelerate launch --num_processes N train.py \
 
 ```
 
-Finally, we train 100 additional epochs on the entire dataset to get the best result
+Finally, we train a total of 100 additional epochs on the entire dataset to get the best result (45th in the article)
 
 ```
 
