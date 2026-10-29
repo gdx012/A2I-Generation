@@ -27,7 +27,7 @@ Official implementation of paper "Towards Expressive and Faithful Audio-to-Image
 As an important subfield of cross-modal generation, synthesizing static visual content in the form of images from audio, namely audio-to-image (A2I) generation, has attracted increasing research attention in recent years. Nevertheless, despite the remarkable visual quality of modern text-to-image (T2I) models, the performance of A2I remains fundamentally limited by traditional datasets, which often lack both high-fidelity images and precise cross-modal alignment. As a result, existing methods still struggle to achieve high-quality audio-to-image generation through finetuning strong T2I models, thereby constraining practical applications in this area. Motivated by this gap, we introduce A2I-Set, a unified, high-quality tri-modal dataset consisting of 323K paired audio, images, and detailed text captions, specifically designed for audio-visual research, including audio-conditioned image generation. Besides, we developed a new mixed-source test set for the A2I task through human supervision. We further propose an A2I model, AudioCanvas, fine-tuned on our A2I-Set. Experiments show that AudioCanvas achieves more visually expressive as well as cross-modal alignment results that consistently surpass existing approaches. 
 
 ## 🌟 News
-🎉 Our Paper is accepted by **ACM International Conference on Multimedia (ACMMM 2026)**, congratulations! 🎉
+🎉 Our paper is accepted by **ACM International Conference on Multimedia (ACMMM 2026)**, congratulations! 🎉
 
 
 ## 🚀 Updates​
@@ -35,9 +35,8 @@ As an important subfield of cross-modal generation, synthesizing static visual c
 - [x] 2026/7/14: Updated environment setup for AudioCanvas.
 - [x] 2026/7/17: Updated evaluation codes and script.
 - [x] 2026/7/24: Open source training and inference codes of AudioCanvas.
-
+- [x] 2026/10/29: Upload AudioCanvas' training weights.
 ## 🚩 TO DO
-- [ ] Upload AudioCanvas' training weights.
 ​
 ## 📦 Data preparation
 
@@ -106,9 +105,9 @@ conda activate A2I
 
 ## 🤖 Evaluation
 
-download FID weights from: https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz
+Download FID weights from: https://openaipublic.blob.core.windows.net/diffusion/jul-2021/ref_batches/imagenet/256/VIRTUAL_imagenet256_labeled.npz
 
-download HPSv3 weights from: https://huggingface.co/MizzenAI/HPSv3
+Download HPSv3 weights from: https://huggingface.co/MizzenAI/HPSv3
 
 And move them to `evaluation`
 
@@ -198,6 +197,8 @@ python inference.py \
 
 
 ```
+
+We release our official weights of AudioCanvas on https://huggingface.co/gdx123/AudioCanvas-Weight, which is trained 25 epochs on synthetic data and 45 epochs on mixed data, feel free to use them!
 
 
 ## 🙏 Acknowledgements
